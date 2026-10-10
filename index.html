@@ -90,6 +90,36 @@
     <div id="hasil">Hasil perhitungan akan muncul di sini.</div>
   </div>
 
+  <hr>
+
+<h2>Perbandingan Keuntungan Produk</h2>
+<p>Bandingkan keuntungan beberapa produk.</p>
+
+<label>Nama Produk</label>
+<input id="namaProduk" type="text" placeholder="Contoh: Kaos">
+
+<label>Modal Produk (Rp)</label>
+<input id="modalBanding" type="number" placeholder="35000">
+
+<label>Harga Jual (Rp)</label>
+<input id="hargaBanding" type="number" placeholder="70000">
+
+<label>Biaya Platform (%)</label>
+<input id="biayaBanding" type="number" value="10">
+
+<label>Biaya Tambahan (Rp)</label>
+<input id="tambahanBanding" type="number" value="2000">
+
+<button onclick="bandingkanProduk()">
+  Tambahkan & Bandingkan
+</button>
+
+<div id="hasilBanding"
+     data-produk=""
+     style="margin-top:20px; padding:15px; background:#e8f4ff; border-radius:8px;">
+  Hasil perbandingan akan muncul di sini.
+</div>
+
   <script>
     function hitungUntung() {
       let modal = Number(document.getElementById("modal").value);
@@ -120,6 +150,39 @@
         maximumFractionDigits: 0
       }).format(angka);
     }
+    function bandingkanProduk() {
+  let nama = document.getElementById("namaProduk").value;
+  let modal = Number(document.getElementById("modalBanding").value);
+  let harga = Number(document.getElementById("hargaBanding").value);
+  let biaya = Number(document.getElementById("biayaBanding").value);
+  let tambahan = Number(document.getElementById("tambahanBanding").value);
+
+  if (nama.trim() === "" || modal <= 0 || harga <= 0 || biaya < 0 || biaya > 100 || tambahan < 0) {
+    document.getElementById("hasilBanding").innerText =
+      "Isi semua kolom dengan data yang benar.";
+    return;
+  }
+
+  let biayaPlatform = harga * biaya / 100;
+  let untung = harga - modal - biayaPlatform - tambahan;
+
+  let hasil = document.getElementById("hasilBanding");
+  let data = JSON.parse(hasil.dataset.produk || "[]");
+
+  data.push({
+    nama: nama,
+    untung: untung
+  });
+
+  data.sort((a, b) => b.untung - a.untung);
+  hasil.dataset.produk = JSON.stringify(data);
+
+  hasil.innerHTML = "<strong>Perbandingan keuntungan:</strong><br>" +
+    data.map((p, i) =>
+      (i + 1) + ". " + p.nama + " — " +
+      rupiah(p.untung)
+    ).join("<br>");
+             }
   </script>
 </body>
 </html>
