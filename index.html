@@ -248,6 +248,36 @@ produkStok.forEach(function(item, index) {
 }
 
 tampilkanStok();
+  
+   
+function prosesStok() {
+  const pilihan = document.getElementById("pilihProduk");
+  const jenis = document.getElementById("jenisTransaksi").value;
+  const jumlah = Number(document.getElementById("jumlahStok").value);
+  const index = Number(pilihan.value);
+  const item = produkStok[index];
+
+  if (!jumlah || jumlah < 1) {
+    alert("Masukkan jumlah barang yang benar!");
+    return;
+  }
+
+  if (jenis === "masuk") {
+    item.stok += jumlah;
+  } else {
+    if (jumlah > item.stok) {
+      alert("Stok tidak cukup!");
+      return;
+    }
+
+    item.stok -= jumlah;
+  }
+
+  document.getElementById("jumlahStok").value = "";
+  tampilkanStok();
+
+  alert("Transaksi stok berhasil!");
+}
     
         
   </script>
