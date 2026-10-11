@@ -208,12 +208,18 @@
     ).join("<br>");
              }
     
-const produkStok = [
-  { nama: "Jaket", stok: 12 },
-  { nama: "Kaos", stok: 2 },
-  { nama: "Sepatu", stok: 1 },
-  { nama: "Tas", stok: 8 }
-];
+
+const dataStokTersimpan = localStorage.getItem("rafaStok");
+
+const produkStok = dataStokTersimpan
+  ? JSON.parse(dataStokTersimpan)
+  : [
+      { nama: "Jaket", stok: 12 },
+      { nama: "Kaos", stok: 2 },
+      { nama: "Sepatu", stok: 1 },
+      { nama: "Tas", stok: 8 }
+    ];
+    
 
 
 function tampilkanStok() {
@@ -275,7 +281,10 @@ function prosesStok() {
 
   document.getElementById("jumlahStok").value = "";
   tampilkanStok();
-
+localStorage.setItem(
+  "rafaStok",
+  JSON.stringify(produkStok)
+);
   alert("Transaksi stok berhasil!");
 }
     
