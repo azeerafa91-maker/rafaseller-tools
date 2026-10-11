@@ -218,6 +218,14 @@ const produkStok = [
 
 function tampilkanStok() {
   const tempat = document.getElementById("daftarStok");
+  const pilihan = document.getElementById("pilihProduk");
+
+pilihan.innerHTML = "";
+
+produkStok.forEach(function(item, index) {
+  pilihan.innerHTML +=
+    `<option value="${index}">${item.nama}</option>`;
+});
   const stokMenipis = [];
 
   tempat.innerHTML = "";
