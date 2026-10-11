@@ -184,6 +184,25 @@
       rupiah(p.untung)
     ).join("<br>");
              }
+    
+const produkStok = [
+  { nama: "Jaket", stok: 12 },
+  { nama: "Kaos", stok: 2 },
+  { nama: "Sepatu", stok: 1 },
+  { nama: "Tas", stok: 8 }
+];
+
+function tampilkanStok() {
+  const tempat = document.getElementById("daftarStok");
+
+  produkStok.forEach(function(item) {
+    tempat.innerHTML +=
+      `<p>${item.nama} — Stok: ${item.stok}</p>`;
+  });
+}
+
+tampilkanStok();
+        
   </script>
 </body>
 </html>
