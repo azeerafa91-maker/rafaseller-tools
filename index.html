@@ -192,16 +192,32 @@ const produkStok = [
   { nama: "Tas", stok: 8 }
 ];
 
+
 function tampilkanStok() {
   const tempat = document.getElementById("daftarStok");
+  const stokMenipis = [];
+
+  tempat.innerHTML = "";
 
   produkStok.forEach(function(item) {
     tempat.innerHTML +=
       `<p>${item.nama} — Stok: ${item.stok}</p>`;
+
+    if (item.stok <= 2) {
+      stokMenipis.push(item);
+    }
+  });
+
+  tempat.innerHTML += "<h3>⚠️ Peringatan Stok Menipis</h3>";
+
+  stokMenipis.forEach(function(item) {
+    tempat.innerHTML +=
+      `<p>${item.nama} — Stok tersisa ${item.stok}!</p>`;
   });
 }
 
 tampilkanStok();
+    
         
   </script>
 </body>
