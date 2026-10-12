@@ -207,9 +207,7 @@
       rupiah(p.untung)
     ).join("<br>");
              }
-    
-
-const dataStokTersimpan = localStorage.getItem("rafaStok");
+    const dataStokTersimpan = localStorage.getItem("rafaStok");
 
 const produkStok = dataStokTersimpan
   ? JSON.parse(dataStokTersimpan)
@@ -223,8 +221,9 @@ const produkStok = dataStokTersimpan
 let riwayatStok = JSON.parse(
   localStorage.getItem("riwayatStok")
 ) || [];
-    
-
+    
+function tampilkanStok() {
+  
 const tempat = document.getElementById("daftarStok");
 const pilihan = document.getElementById("pilihProduk");
 
@@ -307,11 +306,12 @@ localStorage.setItem(
   JSON.stringify(riwayatStok)
 );
   document.getElementById("jumlahStok").value = "";
-  tampilkanStok();
+  
 localStorage.setItem(
   "rafaStok",
   JSON.stringify(produkStok)
 );
+  tampilkanStok();
   alert("Transaksi stok berhasil!");
 }
     
