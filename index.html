@@ -227,11 +227,24 @@ function tampilkanStok() {
 const tempat = document.getElementById("daftarStok");
 const pilihan = document.getElementById("pilihProduk");
 
+const pilihanSebelumnya = localStorage.getItem("pilihanProduk");
+
 pilihan.innerHTML = "";
 
 produkStok.forEach(function(item, index) {
   pilihan.innerHTML +=
     `<option value="${index}">${item.nama}</option>`;
+});
+
+if (
+  pilihanSebelumnya !== null &&
+  produkStok[Number(pilihanSebelumnya)]
+) {
+  pilihan.value = pilihanSebelumnya;
+}
+
+pilihan.addEventListener("change", function() {
+  localStorage.setItem("pilihanProduk", pilihan.value);
 });
     
 
