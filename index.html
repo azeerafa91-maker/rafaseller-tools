@@ -294,7 +294,17 @@ function prosesStok() {
 
     item.stok -= jumlah;
   }
+riwayatStok.push({
+  nama: item.nama,
+  jenis: jenis,
+  jumlah: jumlah,
+  waktu: new Date().toLocaleString("id-ID")
+});
 
+localStorage.setItem(
+  "riwayatStok",
+  JSON.stringify(riwayatStok)
+);
   document.getElementById("jumlahStok").value = "";
   tampilkanStok();
 localStorage.setItem(
