@@ -220,6 +220,10 @@ const produkStok = dataStokTersimpan
       { nama: "Tas", stok: 8 }
     ];
     
+let riwayatStok = JSON.parse(
+  localStorage.getItem("riwayatStok")
+) || [];
+    
 
 
 function tampilkanStok() {
@@ -251,6 +255,15 @@ produkStok.forEach(function(item, index) {
     tempat.innerHTML +=
       `<p>${item.nama} — Stok tersisa ${item.stok}!</p>`;
   });
+
+const tempatRiwayat = document.getElementById("riwayatStok");
+tempatRiwayat.innerHTML = "";
+
+riwayatStok.forEach(function(transaksi) {
+  tempatRiwayat.innerHTML +=
+    `<p>${transaksi.waktu} — ${transaksi.nama} — ${transaksi.jenis} — ${transaksi.jumlah} barang</p>`;
+});
+  
 }
 
 tampilkanStok();
