@@ -226,9 +226,10 @@ let riwayatStok = JSON.parse(
     
 
 
-function tampilkanStok() {
-  const tempat = document.getElementById("daftarStok");
-  const pilihan = document.getElementById("pilihProduk");
+const tempat = document.getElementById("daftarStok");
+const pilihan = document.getElementById("pilihProduk");
+
+const pilihanSebelumnya = pilihan.value;
 
 pilihan.innerHTML = "";
 
@@ -236,6 +237,12 @@ produkStok.forEach(function(item, index) {
   pilihan.innerHTML +=
     `<option value="${index}">${item.nama}</option>`;
 });
+
+if (pilihanSebelumnya !== "") {
+  pilihan.value = pilihanSebelumnya;
+}
+    
+
   const stokMenipis = [];
 
   tempat.innerHTML = "";
