@@ -267,6 +267,23 @@ function perbaruiDashboard() {
       ? "Stok menipis: " + stokMenipis.join(", ")
       : "Semua stok aman";
   
+  let totalMasuk = 0;
+  let totalKeluar = 0;
+
+  for (let i = 0; i < riwayatStok.length; i++) {
+    if (riwayatStok[i].jenis === "masuk") {
+      totalMasuk += riwayatStok[i].jumlah;
+    } else if (riwayatStok[i].jenis === "keluar") {
+      totalKeluar += riwayatStok[i].jumlah;
+    }
+  }
+
+  document.getElementById("totalMasuk").textContent =
+    totalMasuk;
+
+  document.getElementById("totalKeluar").textContent =
+    totalKeluar;
+  
 
 }
     
