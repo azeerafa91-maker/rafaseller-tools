@@ -254,20 +254,25 @@ pilihan.addEventListener("change", function() {
 });
     
 
+const stokMenipis = [];
 
-  const stokMenipis = [];
+tempat.innerHTML = "";
 
-  tempat.innerHTML = "";
+const kolomCari = document.getElementById("cariProduk");
+const kataCari = kolomCari.value.toLowerCase().trim();
 
-  produkStok.forEach(function(item) {
+produkStok.forEach(function(item) {
+  if (item.nama.toLowerCase().includes(kataCari)) {
     tempat.innerHTML +=
       `<p>${item.nama} — Stok: ${item.stok}</p>`;
+  }
 
-    if (item.stok <= 2) {
-      stokMenipis.push(item);
-    }
-  });
-
+  if (item.stok <= 2) {
+    stokMenipis.push(item);
+  }
+});
+  
+  
   tempat.innerHTML += "<h3>⚠️ Peringatan Stok Menipis</h3>";
 
   stokMenipis.forEach(function(item) {
@@ -285,6 +290,10 @@ riwayatStok.forEach(function(transaksi) {
   
 }
 
+document.getElementById("cariProduk").addEventListener("input", function() {
+  tampilkanStok();
+});
+            
 tampilkanStok();
   
    
