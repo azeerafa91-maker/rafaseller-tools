@@ -292,10 +292,15 @@ function prosesStok() {
   alert("Produk tidak ditemukan!");
   return;
   }
-  if (!jumlah || jumlah < 1) {
-    alert("Masukkan jumlah barang yang benar!");
-    return;
-  }
+  
+if (
+  !Number.isInteger(jumlah) ||
+  jumlah < 1
+) {
+  alert("Masukkan jumlah barang bulat yang benar!");
+  return;
+}
+  
 
   if (jenis === "masuk") {
     item.stok += jumlah;
