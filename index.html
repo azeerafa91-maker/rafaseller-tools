@@ -236,6 +236,21 @@ let riwayatStok = JSON.parse(
   localStorage.getItem("riwayatStok")
 ) || [];
     
+function perbaruiDashboard() {
+  document.getElementById("totalProduk").textContent =
+    produkStok.length;
+
+  let totalStok = 0;
+
+  for (let i = 0; i < produkStok.length; i++) {
+    totalStok += produkStok[i].stok;
+  }
+
+  document.getElementById("totalStok").textContent =
+    totalStok;
+}
+    
+    
 function tampilkanStok() {
   
 const tempat = document.getElementById("daftarStok");
