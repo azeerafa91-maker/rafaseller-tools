@@ -249,6 +249,21 @@ function perbaruiDashboard() {
 
   document.getElementById("totalStok").textContent =
     totalStok;
+
+  let stokMenipis = [];
+
+  for (let i = 0; i < produkStok.length; i++) {
+    if (produkStok[i].stok <= 3) {
+      stokMenipis.push(produkStok[i].nama);
+    }
+  }
+
+  document.getElementById("peringatanStok").textContent =
+    stokMenipis.length > 0
+      ? "Stok menipis: " + stokMenipis.join(", ")
+      : "Semua stok aman";
+  
+
 }
     
 perbaruiDashboard();
