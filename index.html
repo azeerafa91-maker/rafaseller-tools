@@ -275,15 +275,35 @@ function perbaruiDashboard() {
       : "Semua stok aman";
   
   let totalMasuk = 0;
-  let totalKeluar = 0;
+let totalKeluar = 0;
 
-  for (let i = 0; i < riwayatStok.length; i++) {
-    if (riwayatStok[i].jenis === "masuk") {
-      totalMasuk += riwayatStok[i].jumlah;
-    } else if (riwayatStok[i].jenis === "keluar") {
-      totalKeluar += riwayatStok[i].jumlah;
+const waktuReset = localStorage.getItem("waktuResetStok");
+
+for (let i = 0; i < riwayatStok.length; i++) {
+const transaksi = riwayatStok[i];
+
+const waktuTransaksi = new Date(
+transaksi.waktu
+).getTime();
+
+const batasReset = waktuReset
+? new Date(waktuReset).getTime()
+: 0;
+
+if (
+!waktuReset ||
+(
+!isNaN(waktuTransaksi) &&
+waktuTransaksi > batasReset
+)
+) {
+if (transaksi.jenis === "masuk") {
+totalMasuk += transaksi.jumlah;
+} else if (transaksi.jenis === "keluar") {
+totalKeluar += transaksi.jumlah;
+}
+}
     }
-  }
 
   document.getElementById("totalMasuk").textContent =
     totalMasuk;
@@ -400,7 +420,7 @@ riwayatStok.push({
   nama: item.nama,
   jenis: jenis,
   jumlah: jumlah,
-  waktu: new Date().toLocaleString("id-ID")
+  waktu: new Date().toISOString()
 });
 
 localStorage.setItem(
@@ -435,7 +455,10 @@ localStorage.setItem(
 "rafaStok",
 JSON.stringify(produkStok)
 );
-
+localStorage.setItem(
+  "waktuResetStok",
+  new Date().toISOString()
+);
 tampilkanStok();
 perbaruiDashboard();
 
