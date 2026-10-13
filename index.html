@@ -102,6 +102,13 @@
   
   <p id="peringatanStok"></p>
 </div>
+  <div class="kartu">
+  <h3>Pengaturan Stok</h3>
+  <p>Mulai kembali pencatatan stok dari nol.</p>
+  <button type="button" onclick="resetSemuaStok()">
+    Reset Semua Stok ke 0
+  </button>
+  </div>
   
 <h2>Stok Produk</h2>
 
@@ -411,7 +418,29 @@ localStorage.setItem(
   perbaruiDashboard();
   alert("Transaksi stok berhasil!");
 }
-    
+    function resetSemuaStok() {
+const yakin = confirm(
+"Yakin ingin mengatur semua stok menjadi 0?"
+);
+
+if (!yakin) {
+return;
+}
+
+produkStok.forEach(function(item) {
+item.stok = 0;
+});
+
+localStorage.setItem(
+"rafaStok",
+JSON.stringify(produkStok)
+);
+
+tampilkanStok();
+perbaruiDashboard();
+
+alert("Semua stok berhasil direset menjadi 0!");
+  }
         
   </script>
 </body>
