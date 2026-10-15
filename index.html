@@ -80,7 +80,23 @@
 
 <label>Jumlah Stok Awal</label>
 <input id="stokAwalBaru" type="number" min="0" step="1" placeholder="Contoh: 20">
+<label>Harga Modal Produk (Rp)</label>
+<input
+  id="modalProdukBaru"
+  type="number"
+  min="0"
+  step="1"
+  placeholder="Contoh: 25000"
+>
 
+<label>Harga Jual Produk (Rp)</label>
+<input
+  id="hargaProdukBaru"
+  type="number"
+  min="0"
+  step="1"
+  placeholder="Contoh: 50000"
+>
 <button onclick="tambahProdukBaru()">
   Tambah Produk
 </button>
@@ -407,7 +423,11 @@ function tambahProdukBaru() {
 
   const nama = inputNama.value.trim();
   const stok = Number(inputStok.value);
+const inputModal = document.getElementById("modalProdukBaru");
+const inputHarga = document.getElementById("hargaProdukBaru");
 
+const modal = Number(inputModal.value);
+const harga = Number(inputHarga.value);
   if (nama === "") {
     pesan.textContent = "Nama produk wajib diisi!";
     return;
@@ -421,7 +441,24 @@ function tambahProdukBaru() {
     pesan.textContent = "Stok harus berupa bilangan bulat minimal 0!";
     return;
   }
+if (
+  inputModal.value.trim() === "" ||
+  !Number.isInteger(modal) ||
+  modal <= 0
+) {
+  pesan.textContent = "Harga modal harus berupa bilangan bulat lebih dari 0!";
+  return;
+}
 
+if (
+  inputHarga.value.trim() === "" ||
+  !Number.isInteger(harga) ||
+  harga <= 0
+) {
+  pesan.textContent = "Harga jual harus berupa bilangan bulat lebih dari 0!";
+  return;
+}
+  
   const sudahAda = produkStok.some(function(item) {
     return item.nama.toLowerCase() === nama.toLowerCase();
   });
@@ -432,9 +469,11 @@ function tambahProdukBaru() {
   }
 
   produkStok.push({
-    nama: nama,
-    stok: stok
-  });
+  nama: nama,
+  stok: stok,
+  modal: modal,
+  harga: harga
+});
 
   localStorage.setItem(
     "rafaStok",
