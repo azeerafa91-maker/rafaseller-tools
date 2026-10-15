@@ -73,6 +73,21 @@
     <h1>RafaSeller Tools</h1>
     <p>Kalkulator Keuntungan Penjual</p>
 
+<h2>Tambah Produk</h2>
+
+<label>Nama Produk</label>
+<input id="namaProdukBaru" type="text" placeholder="Contoh: Baju Anak">
+
+<label>Jumlah Stok Awal</label>
+<input id="stokAwalBaru" type="number" min="0" step="1" placeholder="Contoh: 20">
+
+<button onclick="tambahProdukBaru()">
+  Tambah Produk
+</button>
+
+<div id="pesanProduk"></div>
+    
+    
     <label>Modal Produk (Rp)</label>
     <input id="modal" type="number" placeholder="Contoh: 35000">
 
@@ -385,6 +400,56 @@ document.getElementById("cariProduk").addEventListener("input", function() {
             
 tampilkanStok();
   
+function tambahProdukBaru() {
+  const inputNama = document.getElementById("namaProdukBaru");
+  const inputStok = document.getElementById("stokAwalBaru");
+  const pesan = document.getElementById("pesanProduk");
+
+  const nama = inputNama.value.trim();
+  const stok = Number(inputStok.value);
+
+  if (nama === "") {
+    pesan.textContent = "Nama produk wajib diisi!";
+    return;
+  }
+
+  if (
+    inputStok.value.trim() === "" ||
+    !Number.isInteger(stok) ||
+    stok < 0
+  ) {
+    pesan.textContent = "Stok harus berupa bilangan bulat minimal 0!";
+    return;
+  }
+
+  const sudahAda = produkStok.some(function(item) {
+    return item.nama.toLowerCase() === nama.toLowerCase();
+  });
+
+  if (sudahAda) {
+    pesan.textContent = "Nama produk sudah ada!";
+    return;
+  }
+
+  produkStok.push({
+    nama: nama,
+    stok: stok
+  });
+
+  localStorage.setItem(
+    "rafaStok",
+    JSON.stringify(produkStok)
+  );
+
+  inputNama.value = "";
+  inputStok.value = "";
+
+  tampilkanStok();
+  perbaruiDashboard();
+
+  pesan.textContent = "Produk berhasil ditambahkan!";
+}
+    
    
 function prosesStok() {
   const pilihan = document.getElementById("pilihProduk");
