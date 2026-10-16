@@ -426,8 +426,8 @@ async function pulihkanData() {
 
     alert("Data berhasil dipulihkan!");
   } catch (error) {
-    alert("File gagal dibaca. Periksa file cadangan!");
-  }
+  alert("Penyebab error: " + error.message);
+      }
     }
     
 perbaruiDashboard();
