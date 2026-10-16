@@ -437,13 +437,12 @@ perbaruiDashboard();
 function tampilkanStok() {
   
 const tempat = document.getElementById("daftarStok");
-console.log("daftarStok:", tempat);
+const pilihanSebelumnya = localStorage.getItem("pilihanProduk");
+  console.log("daftarStok:", tempat);
 console.log("pilihProduk:", pilihan);
 console.log("cariProduk:", document.getElementById("cariProduk"));
 console.log("riwayatStok:", document.getElementById("riwayatStok"));
   const pilihan = document.getElementById("pilihProduk");
-
-const pilihanSebelumnya = localStorage.getItem("pilihanProduk");
 
 pilihan.innerHTML = "";
 
