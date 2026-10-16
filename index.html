@@ -132,7 +132,10 @@
 <p>Barang Terjual: <span id="totalKeluar">0</span></p>
   
   <p id="peringatanStok"></p>
+<button onclick="cadangkanData()">📦 Cadangkan Data</button>
+
 </div>
+
   <div class="kartu">
   <h3>Pengaturan Stok</h3>
   <p>Mulai kembali pencatatan stok dari nol.</p>
@@ -344,6 +347,28 @@ totalKeluar += transaksi.jumlah;
   
 
 }
+
+function cadangkanData() {
+  const cadangan = {
+    produkStok: produkStok,
+    riwayatStok: riwayatStok
+  };
+
+  const dataJSON = JSON.stringify(cadangan, null, 2);
+
+  const file = new Blob(
+    [dataJSON],
+    { type: "application/json" }
+  );
+
+  const link = document.createElement("a");
+  link.href = URL.createObjectURL(file);
+  link.download = "cadangan-rafaseller.json";
+  link.click();
+
+  URL.revokeObjectURL(link.href);
+}
+    
     
 perbaruiDashboard();
     
