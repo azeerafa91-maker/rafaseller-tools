@@ -494,7 +494,11 @@ if (item.nama.toLowerCase().includes(kataCari)) {
       Harga Jual: ${item.harga
         ? rupiah(item.harga)
         : "Belum diisi"}<br>
-      
+    
+<button onclick="editProduk(${produkStok.indexOf(item)})">
+  ✏️ Edit Produk
+</button><br>
+    
 ${
   item.jenis === "contoh"
     ? `<button onclick="hapusProduk(${produkStok.indexOf(item)})">
@@ -777,7 +781,50 @@ function hapusProdukUtama(index) {
 
   alert("Produk utama berhasil dihapus!");
   }
-    
+  function editProduk(index) {
+  const item = produkStok[index];
+
+  if (!item) return;
+
+  const namaBaru = prompt("Ubah nama produk:", item.nama);
+  if (namaBaru === null) return;
+
+  const stokBaru = prompt("Ubah jumlah stok:", item.stok);
+  if (stokBaru === null) return;
+
+  const modalBaru = prompt("Ubah harga modal:", item.modal || 0);
+  if (modalBaru === null) return;
+
+  const hargaBaru = prompt("Ubah harga jual:", item.harga || 0);
+  if (hargaBaru === null) return;
+
+  const nama = namaBaru.trim();
+  const stok = Number(stokBaru);
+  const modal = Number(modalBaru);
+  const harga = Number(hargaBaru);
+
+  if (
+    !nama ||
+    !Number.isInteger(stok) || stok < 0 ||
+    !Number.isInteger(modal) || modal <= 0 ||
+    !Number.isInteger(harga) || harga <= 0
+  ) {
+    alert("Data tidak valid. Periksa kembali!");
+    return;
+  }
+
+  item.nama = nama;
+  item.stok = stok;
+  item.modal = modal;
+  item.harga = harga;
+
+  localStorage.setItem("rafaStok", JSON.stringify(produkStok));
+
+  tampilkanStok();
+  perbaruiDashboard();
+
+  alert("Produk berhasil diperbarui!");
+    }  
 
   </script>
 </body>
