@@ -476,6 +476,7 @@ const kataCari = kolomCari.value.toLowerCase().trim();
 
 produkStok.forEach(function(item) {
   
+
 if (item.nama.toLowerCase().includes(kataCari)) {
   tempat.innerHTML +=
     `<p>
@@ -486,11 +487,16 @@ if (item.nama.toLowerCase().includes(kataCari)) {
       Harga Jual: ${item.harga
         ? rupiah(item.harga)
         : "Belum diisi"}<br>
-      <button onclick="hapusProduk(${produkStok.indexOf(item)})">
-        🗑️ Hapus Produk
-      </button>
+      ${
+        item.jenis === "contoh"
+          ? `<button onclick="hapusProduk(${produkStok.indexOf(item)})">
+               🗑️ Hapus Produk Contoh
+             </button>`
+          : ""
+      }
     </p>`;
-    }
+  }
+  
   
 
   if (item.stok <= 2) {
@@ -578,7 +584,8 @@ if (
   nama: nama,
   stok: stok,
   modal: modal,
-  harga: harga
+  harga: harga,
+  jenis: "utama"
 });
 
   localStorage.setItem(
@@ -698,8 +705,13 @@ function hapusProduk(index) {
 
   if (!item) return;
 
+  if (item.jenis !== "contoh") {
+    alert("Produk utama tidak boleh dihapus lewat tombol ini!");
+    return;
+  }
+
   const yakin = confirm(
-    "Yakin ingin menghapus produk " + item.nama + "?"
+    "Hapus produk contoh " + item.nama + "?"
   );
 
   if (!yakin) return;
@@ -714,9 +726,10 @@ function hapusProduk(index) {
   tampilkanStok();
   perbaruiDashboard();
 
-  alert("Produk berhasil dihapus!");
-}
+  alert("Produk contoh berhasil dihapus!");
+    }
     
+
   </script>
 </body>
 </html>
