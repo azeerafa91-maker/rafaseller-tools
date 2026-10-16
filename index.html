@@ -494,13 +494,17 @@ if (item.nama.toLowerCase().includes(kataCari)) {
       Harga Jual: ${item.harga
         ? rupiah(item.harga)
         : "Belum diisi"}<br>
-      ${
-        item.jenis === "contoh"
-          ? `<button onclick="hapusProduk(${produkStok.indexOf(item)})">
-               🗑️ Hapus Produk Contoh
-             </button>`
-          : ""
-      }
+      
+${
+  item.jenis === "contoh"
+    ? `<button onclick="hapusProduk(${produkStok.indexOf(item)})">
+         🗑️ Hapus Produk Contoh
+       </button>`
+    : `<button onclick="hapusProdukUtama(${produkStok.indexOf(item)})">
+         🔒 Hapus Produk Utama
+       </button>`
+    }
+    
     </p>`;
   }
   
