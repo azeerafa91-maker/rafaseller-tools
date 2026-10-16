@@ -134,6 +134,13 @@
   <p id="peringatanStok"></p>
 <button onclick="cadangkanData()">📦 Cadangkan Data</button>
 
+<input
+  type="file"
+  id="fileCadangan"
+  accept=".json,application/json"
+>
+<button onclick="pulihkanData()">📂 Pulihkan Data</button>
+  
 </div>
 
   <div class="kartu">
@@ -369,6 +376,55 @@ function cadangkanData() {
   URL.revokeObjectURL(link.href);
 }
     
+    
+async function pulihkanData() {
+  const input = document.getElementById("fileCadangan");
+  const file = input.files[0];
+
+  if (!file) {
+    alert("Pilih file cadangan terlebih dahulu!");
+    return;
+  }
+
+  try {
+    const teks = await file.text();
+    const data = JSON.parse(teks);
+
+    if (
+      !Array.isArray(data.produkStok) ||
+      !Array.isArray(data.riwayatStok)
+    ) {
+      alert("Format file cadangan tidak valid!");
+      return;
+    }
+
+    const yakin = confirm(
+      "Data produk dan riwayat saat ini akan diganti. Lanjutkan?"
+    );
+
+    if (!yakin) return;
+
+    produkStok = data.produkStok;
+    riwayatStok = data.riwayatStok;
+
+    localStorage.setItem(
+      "rafaStok",
+      JSON.stringify(produkStok)
+    );
+
+    localStorage.setItem(
+      "riwayatStok",
+      JSON.stringify(riwayatStok)
+    );
+
+    tampilkanStok();
+    perbaruiDashboard();
+
+    alert("Data berhasil dipulihkan!");
+  } catch (error) {
+    alert("File gagal dibaca. Periksa file cadangan!");
+  }
+    }
     
 perbaruiDashboard();
     
