@@ -404,7 +404,11 @@ async function pulihkanData() {
 
     if (!yakin) return;
 
-    produkStok = data.produkStok;
+    produkStok.splice(
+  0,
+  produkStok.length,
+  ...data.produkStok
+);
     riwayatStok = data.riwayatStok;
 
     localStorage.setItem(
