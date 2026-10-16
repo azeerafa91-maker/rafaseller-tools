@@ -737,6 +737,42 @@ function hapusProduk(index) {
 
   alert("Produk contoh berhasil dihapus!");
     }
+   
+function hapusProdukUtama(index) {
+  const item = produkStok[index];
+
+  if (!item) return;
+
+  if (item.jenis === "contoh") {
+    alert("Produk contoh gunakan tombol hapus contoh!");
+    return;
+  }
+
+  const yakin = confirm(
+    "PERINGATAN!\nHapus produk utama: " + item.nama +
+    "?\nProduk ini akan dihapus dari daftar stok."
+  );
+
+  if (!yakin) return;
+
+  const konfirmasiKedua = confirm(
+    "Yakin sekali ingin menghapus " + item.nama + "?"
+  );
+
+  if (!konfirmasiKedua) return;
+
+  produkStok.splice(index, 1);
+
+  localStorage.setItem(
+    "rafaStok",
+    JSON.stringify(produkStok)
+  );
+
+  tampilkanStok();
+  perbaruiDashboard();
+
+  alert("Produk utama berhasil dihapus!");
+  }
     
 
   </script>
