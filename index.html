@@ -97,6 +97,13 @@
   step="1"
   placeholder="Contoh: 50000"
 >
+    
+<label>Status Produk</label>
+<select id="jenisProdukBaru">
+  <option value="utama">Produk Utama</option>
+  <option value="contoh">Produk Contoh (Bisa Dihapus)</option>
+</select>
+    
 <button onclick="tambahProdukBaru()">
   Tambah Produk
 </button>
@@ -532,7 +539,7 @@ function tambahProdukBaru() {
   const inputNama = document.getElementById("namaProdukBaru");
   const inputStok = document.getElementById("stokAwalBaru");
   const pesan = document.getElementById("pesanProduk");
-
+const inputJenis = document.getElementById("jenisProdukBaru");
   const nama = inputNama.value.trim();
   const stok = Number(inputStok.value);
 const inputModal = document.getElementById("modalProdukBaru");
@@ -585,7 +592,7 @@ if (
   stok: stok,
   modal: modal,
   harga: harga,
-  jenis: "utama"
+  jenis: inputJenis.value
 });
 
   localStorage.setItem(
