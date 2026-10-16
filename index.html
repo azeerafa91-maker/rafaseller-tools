@@ -141,7 +141,10 @@
 >
 <button onclick="pulihkanData()">📂 Pulihkan Data</button>
  <h2>Riwayat Transaksi Stok</h2>
-<div id="riwayatStok"></div> 
+<button onclick="hapusRiwayat()">
+  🗑️ Hapus Riwayat Transaksi
+</button>
+  <div id="riwayatStok"></div> 
 </div>
 
   <div class="kartu">
@@ -666,7 +669,24 @@ perbaruiDashboard();
 
 alert("Semua stok berhasil direset menjadi 0!");
   }
-        
+      function hapusRiwayat() {
+  const yakin = confirm(
+    "Yakin ingin menghapus semua riwayat transaksi?"
+  );
+
+  if (!yakin) return;
+
+  riwayatStok = [];
+
+  localStorage.setItem(
+    "riwayatStok",
+    JSON.stringify(riwayatStok)
+  );
+
+  tampilkanStok();
+
+  alert("Riwayat transaksi berhasil dihapus!");
+    }  
   </script>
 </body>
 </html>
