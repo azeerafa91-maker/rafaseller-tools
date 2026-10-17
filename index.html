@@ -192,6 +192,31 @@ button:hover {
     grid-template-columns: 1fr;
   }
 }
+  
+/* Kartu produk RafaSeller */
+#daftarStok .kartu-produk {
+  min-width: 0;
+  padding: 14px;
+  border: 1px solid #e5e7eb;
+  border-radius: 14px;
+  background: #ffffff;
+  box-shadow: 0 3px 10px rgba(15, 23, 42, 0.05);
+  overflow-wrap: anywhere;
+}
+
+#daftarStok .kartu-produk h3 {
+  margin-top: 0;
+  font-size: 17px;
+}
+
+#daftarStok .kartu-produk p {
+  margin: 8px 0;
+}
+
+#daftarStok .kartu-produk button {
+  width: 100%;
+  margin-top: 8px;
+    }
     
     
   </style>
@@ -614,32 +639,34 @@ produkStok.forEach(function(item) {
 
 if (item.nama.toLowerCase().includes(kataCari)) {
   tempat.innerHTML +=
-    `<p>
-      ${item.nama} — Stok: ${item.stok}<br>
-      Harga Modal: ${item.modal
-        ? rupiah(item.modal)
-        : "Belum diisi"}<br>
-      Harga Jual: ${item.harga
-        ? rupiah(item.harga)
-        : "Belum diisi"}<br>
-    
-<button onclick="editProduk(${produkStok.indexOf(item)})">
-  ✏️ Edit Produk
-</button><br>
-    
-${
-  item.jenis === "contoh"
-    ? `<button onclick="hapusProduk(${produkStok.indexOf(item)})">
-         🗑️ Hapus Produk Contoh
-       </button>`
-    : `<button onclick="hapusProdukUtama(${produkStok.indexOf(item)})">
-         🔒 Hapus Produk Utama
-       </button>`
+    `<div class="kartu-produk">
+      <h3>${item.nama}</h3>
+
+      <p>📦 Stok: <strong>${item.stok}</strong></p>
+
+      <p>💰 Harga Modal: ${
+        item.modal ? rupiah(item.modal) : "Belum diisi"
+      }</p>
+
+      <p>🏷️ Harga Jual: ${
+        item.harga ? rupiah(item.harga) : "Belum diisi"
+      }</p>
+
+      <button onclick="editProduk(${produkStok.indexOf(item)})">
+        ✏️ Edit Produk
+      </button>
+
+      ${
+        item.jenis === "contoh"
+          ? `<button onclick="hapusProduk(${produkStok.indexOf(item)})">
+               🗑️ Hapus Produk Contoh
+             </button>`
+          : `<button onclick="hapusProdukUtama(${produkStok.indexOf(item)})">
+               🔒 Hapus Produk Utama
+             </button>`
+      }
+    </div>`;
     }
-    
-    </p>`;
-  }
-  
   
 
   if (item.stok <= 2) {
