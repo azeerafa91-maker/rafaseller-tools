@@ -217,6 +217,37 @@ button:hover {
   width: 100%;
   margin-top: 8px;
     }
+  
+/* Penyempurnaan kartu produk untuk HP */
+#daftarStok .kartu-produk {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  height: 100%;
+}
+
+#daftarStok .kartu-produk h3 {
+  overflow-wrap: anywhere;
+  margin-bottom: 8px;
+}
+
+#daftarStok .kartu-produk button {
+  min-height: 44px;
+  padding: 10px;
+  font-size: 14px;
+  line-height: 1.4;
+  white-space: normal;
+}
+
+#daftarStok .kartu-produk button + button {
+  margin-top: 4px;
+}
+
+@media (max-width: 360px) {
+  #daftarStok {
+    grid-template-columns: 1fr;
+  }
+}
     
     
   </style>
