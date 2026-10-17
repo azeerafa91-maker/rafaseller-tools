@@ -593,12 +593,20 @@ button:focus-visible {
   data.sort((a, b) => b.untung - a.untung);
   hasil.dataset.produk = JSON.stringify(data);
 
-  hasil.innerHTML = "<strong>Perbandingan keuntungan:</strong><br>" +
-    data.map((p, i) =>
-      (i + 1) + ". " + p.nama + " — " +
-      rupiah(p.untung)
-    ).join("<br>");
-             }
+      
+hasil.innerHTML =
+  "<strong>🏆 Peringkat Keuntungan Produk</strong>";
+
+data.forEach(function(p, i) {
+  hasil.innerHTML +=
+    `<div class="baris-hasil">
+      <span class="peringkat">
+        ${i + 1}. ${p.nama}
+      </span>
+      <p>Keuntungan: <strong>${rupiah(p.untung)}</strong></p>
+    </div>`;
+});
+    
     const dataStokTersimpan = localStorage.getItem("rafaStok");
 
 const produkStok = dataStokTersimpan
