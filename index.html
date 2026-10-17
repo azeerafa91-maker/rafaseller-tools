@@ -380,6 +380,59 @@ button:focus-visible {
   color: #14532d;
   }
     
+/* Grafik stok RafaSeller Tools */
+.kartu-grafik {
+  margin: 18px 0;
+  padding: 18px;
+  background: #ffffff;
+  border: 1px solid #e5e7eb;
+  border-radius: 16px;
+  box-shadow: 0 4px 14px rgba(15, 23, 42, 0.06);
+}
+
+.kartu-grafik h3 {
+  margin-top: 0;
+  color: #14532d;
+}
+
+.kartu-grafik > p {
+  color: #6b7280;
+  font-size: 14px;
+}
+
+#grafikStok {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  margin-top: 18px;
+}
+
+.baris-grafik {
+  min-width: 0;
+}
+
+.label-grafik {
+  display: flex;
+  justify-content: space-between;
+  gap: 8px;
+  margin-bottom: 6px;
+  font-size: 14px;
+  overflow-wrap: anywhere;
+}
+
+.latar-grafik {
+  height: 12px;
+  overflow: hidden;
+  background: #e5e7eb;
+  border-radius: 20px;
+}
+
+.batang-grafik {
+  height: 100%;
+  border-radius: 20px;
+  transition: width 0.3s ease;
+}
+    
   </style>
 </head>
 <body>
@@ -682,6 +735,40 @@ function perbaruiDashboard() {
       ? "Stok menipis: " + stokMenipis.join(", ")
       : "Semua stok aman";
   
+  // Perbarui grafik stok produk
+  const tempatGrafik = document.getElementById("grafikStok");
+
+  if (tempatGrafik) {
+    if (produkStok.length === 0) {
+      tempatGrafik.innerHTML = "<p>Belum ada produk.</p>";
+    } else {
+      const stokTerbesar = Math.max(
+        1,
+        ...produkStok.map(item => Number(item.stok) || 0)
+      );
+
+      tempatGrafik.innerHTML = produkStok.map(item => {
+        const jumlah = Number(item.stok) || 0;
+        const lebar = jumlah / stokTerbesar * 100;
+        const warna = jumlah <= 2 ? "#dc2626" : "#15803d";
+
+        return `
+          <div class="baris-grafik">
+            <div class="label-grafik">
+              <span>${item.nama}</span>
+              <strong>${jumlah} barang</strong>
+            </div>
+            <div class="latar-grafik">
+              <div class="batang-grafik"
+                style="width:${lebar}%;background:${warna};">
+              </div>
+            </div>
+          </div>
+        `;
+      }).join("");
+    }
+    }
+    
   let totalMasuk = 0;
 let totalKeluar = 0;
 
