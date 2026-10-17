@@ -1270,6 +1270,21 @@ function editProduk(index) {
     return;
   }
 
+  const stokLama = item.stok;
+  const namaLama = item.nama;
+
+  // Catat perubahan stok jika jumlahnya berubah
+  if (stok !== stokLama) {
+    riwayatStok.push({
+      nama: nama,
+      jenis: "penyesuaian",
+      jumlah: Math.abs(stok - stokLama),
+      stokSebelum: stokLama,
+      stokSesudah: stok,
+      waktu: new Date().toISOString()
+    });
+  }
+
   item.nama = nama;
   item.stok = stok;
   item.modal = modal;
@@ -1280,12 +1295,17 @@ function editProduk(index) {
     JSON.stringify(produkStok)
   );
 
+  localStorage.setItem(
+    "riwayatStok",
+    JSON.stringify(riwayatStok)
+  );
+
   tampilkanStok();
   perbaruiDashboard();
 
   alert("Produk berhasil diperbarui!");
     }
-    
+  
 
   </script>
 </body>
