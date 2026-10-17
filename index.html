@@ -1226,7 +1226,9 @@ function hapusProdukUtama(index) {
 
   alert("Produk utama berhasil dihapus!");
   }
-  function editProduk(index) {
+  
+  
+function editProduk(index) {
   const item = produkStok[index];
 
   if (!item) return;
@@ -1258,18 +1260,32 @@ function hapusProdukUtama(index) {
     return;
   }
 
+  const namaGanda = produkStok.some((produk, i) =>
+    i !== index &&
+    produk.nama.trim().toLowerCase() === nama.toLowerCase()
+  );
+
+  if (namaGanda) {
+    alert("Nama produk sudah digunakan!");
+    return;
+  }
+
   item.nama = nama;
   item.stok = stok;
   item.modal = modal;
   item.harga = harga;
 
-  localStorage.setItem("rafaStok", JSON.stringify(produkStok));
+  localStorage.setItem(
+    "rafaStok",
+    JSON.stringify(produkStok)
+  );
 
   tampilkanStok();
   perbaruiDashboard();
 
   alert("Produk berhasil diperbarui!");
-    }  
+    }
+    
 
   </script>
 </body>
