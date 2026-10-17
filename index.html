@@ -598,14 +598,41 @@ hasil.innerHTML =
   "<strong>🏆 Peringkat Keuntungan Produk</strong>";
 
 data.forEach(function(p, i) {
-  hasil.innerHTML +=
-    `<div class="baris-hasil">
-      <span class="peringkat">
-        ${i + 1}. ${p.nama}
-      </span>
-      <p>Keuntungan: <strong>${rupiah(p.untung)}</strong></p>
-    </div>`;
+  
+hasil.innerHTML +=
+  `<div class="baris-hasil">
+    <span class="peringkat">
+      ${i + 1}. ${p.nama}
+    </span>
+    <p>Keuntungan:
+      <strong style="color: ${
+        p.untung > 0
+          ? '#15803d'
+          : p.untung < 0
+            ? '#dc2626'
+            : '#4b5563'
+      };">
+        ${rupiah(p.untung)}
+      </strong>
+    </p>
+    <p style="color: ${
+      p.untung > 0
+        ? '#15803d'
+        : p.untung < 0
+          ? '#dc2626'
+          : '#4b5563'
+    }; font-weight: bold;">
+      ${
+        p.untung > 0
+          ? '✅ PRODUK UNTUNG'
+          : p.untung < 0
+            ? '⚠️ PRODUK RUGI'
+            : '➖ IMPAS'
+      }
+    </p>
+  </div>`;
 });
+      
     
     const dataStokTersimpan = localStorage.getItem("rafaStok");
 
